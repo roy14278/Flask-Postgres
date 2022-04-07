@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<title>EMPLOYEE</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="15">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{{url_for('static', filename = 'teacher.png' )}}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css"/>
+  <meta name="author" content="Ayushman Das">
+  
+</head>
+<style>
+body {
+  background-image: linear-gradient(#1AF3EC, yellow);
+background-color: #1AF3EC;
+}
+</style>
+<style> 
+input[type=number], input[type=time], input[type="text"] {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 5px 22px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 20px;
+  margin: 4px;
+  cursor: pointer;
+  cursor: auto;
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: #0f2baa;
+  color: white;
+  padding: 10px 22px;
+  margin:24px 2px;
+  border: none;
+  font-weight: 800;
+  font-size: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: #212777;
+}
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 2px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+
+h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+
+}
+
+h5 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    
+}
+label {
+  font-size: 20px;
+    font-weight: 800;
+    
+  width: 100px;
+  display:inline-block;
+}
+</style>
+<div class ="container">
+  <div class="well text-center">
+    <h4>INSERT THE VALUES </h4>
+  </div>
+</div>
+<div class="container">
+<form method="POST" action="{{url_for('insert')}}">
+   
+    <label>ID</label>  <input type="number" name="id" placeholder="Enter the ID.."/>
+  <br />
+    <label>Name</label>  <input type="text" name="name" placeholder="Enter the Name..."/>
+  <br />
+    <label>TIME</label>  <input type="time" name="time" step="1"/>
+  <br />
+  <center><input type="submit" /></center>
+</form>
+</div>
+<div class="container">
+ <div class="row">
+
+        <div class="col md-12">
+   
+          {% with messages = get_flashed_messages(with_categories=true) %}
+
+          {% if messages %}
+
+          {% for category, message in messages %}
+
+         
+               <div class="alert alert-{{category}} alert-dismissible fade in" role="alert">
+               <strong><span>{{message}}</span></strong>
+                             
+               </div>
+
+
+
+          {%endfor%}
+          {%endif%}
+          {%endwith%}
+                 <h5>EMPLOYEE DATA OF LAST 10 ROWS </h5>
+            
+
+   <table class="table table-striped">
+    <tr>
+    <th><h5>ID</h5></th>
+    <th><h5>NAME</h5></th>
+    <th><h5>TIME</h5></th>
+    <th><h5>ACTION</h5></th>
+
+    </tr>
+  {% for row in employees %}
+  <tr>
+      <td><h5>{{row.0}}</h5></td>
+      <td><h5>{{row.1}}</h5></td>
+      <td><h5>{{row.2}}</h5></td>
+      <td> 
+         <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to Delete it?')">Delete</a>
+      </td>
+  </tr>
+  {% endfor %}
+  </table>
+</div>
+</div>
+</div>
+</html>
